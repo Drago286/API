@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -60,5 +61,27 @@ class RegisterController extends Controller
             'SAP' => $data['SAP'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    /**
+     * Register a new user through API.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function registerApi(Request $request)
+    {
+        // Validate the request data
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
+
+        // Create the user
+        $user = $this->create($request->all());
+        $user->update(['status' => 'deshabilitado']);
+        // Return a JSON response with the newly created user
+        return response()->json(['user' => $user], 201);
     }
 }

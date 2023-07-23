@@ -24,6 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/fallas', [FallaController::class, 'index']);
 Route::post('/execute-query', [FallaController::class, 'executeQuery']);
-Route::post('/login', [LoginController::class, 'loginApi']);
+Route::post('/loginApi', [LoginController::class, 'loginApi']);
 Route::post('/register', [RegisterController::class, 'registerApi']);
 //Route::post('/login', 'Auth\LoginController@login');

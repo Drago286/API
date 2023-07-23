@@ -55,7 +55,12 @@ class LoginController extends Controller
         $credentials = $request->only('SAP', 'password');
 
         if (Auth::attempt($credentials)) {
-            return response()->json(['message' => 'Inicio de sesión exitoso'], 200);
+            $user = Auth::user();
+
+            return response()->json([
+                'message' => 'Inicio de sesión exitoso',
+                'status' => $user->status, // Agregar el atributo "status" a la respuesta
+            ], 200);
         }
 
         return response()->json(['message' => 'Credenciales inválidas'], 401);
