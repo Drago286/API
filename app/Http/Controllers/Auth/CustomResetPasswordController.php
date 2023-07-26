@@ -2,14 +2,14 @@
 
 // app/Http/Controllers/Auth/CustomResetPasswordController.php (Backend)
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-class ChangePasswordController extends Controller
+class CustomResetPasswordController extends Controller
 {
     public function changePassword(Request $request)
     {

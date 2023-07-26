@@ -15,6 +15,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
+    'openai_api_key' => env('OPENAI_API_KEY'),
 
     'name' => env('APP_NAME', 'Laravel'),
 

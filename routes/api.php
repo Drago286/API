@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FallaController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\CustomResetPasswordController;
+use App\Http\Controllers\CodigoController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,6 +27,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/change-password', [CustomResetPasswordController::class, 'changePassword']);
 Route::get('/fallas', [FallaController::class, 'index']);
 Route::post('/execute-query', [FallaController::class, 'executeQuery']);
+Route::post('/execute-query-codigos', [CodigoController::class, 'executeQuery']);
 Route::post('/loginApi', [LoginController::class, 'loginApi']);
 Route::post('/register', [RegisterController::class, 'registerApi']);
-//Route::post('/login', 'Auth\LoginController@login');

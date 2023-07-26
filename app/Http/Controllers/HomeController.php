@@ -45,20 +45,24 @@ class HomeController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function updateStatus(Request $request, User $user)
+    public function updateCredentials(Request $request, User $user)
     {
         // Verificar si el usuario autenticado es un administrador
         if (Auth::user()->rol === 'administrador') {
             // Validar la solicitud
             $request->validate([
                 'status' => 'required|in:habilitado,deshabilitado',
+                'rol' => 'required|in:cliente,administrador',
             ]);
 
-            // Actualizar el estado del usuario
-            $user->update(['status' => $request->status]);
+            // Actualizar el estado y el rol del usuario
+            $user->update([
+                'status' => $request->status,
+                'rol' => $request->rol,
+            ]);
 
             // Redireccionar al panel de administrador con un mensaje
-            return redirect()->route('home')->with('success', 'Estado del usuario actualizado correctamente.');
+            return redirect()->route('home')->with('success', 'Credenciales del usuario actualizadas correctamente.');
         }
 
         // Si el usuario no es administrador, redireccionar con un mensaje de error
