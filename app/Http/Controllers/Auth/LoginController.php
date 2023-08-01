@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -61,6 +62,12 @@ class LoginController extends Controller
                 'message' => 'Inicio de sesión exitoso',
                 'status' => $user->status, // Agregar el atributo "status" a la respuesta
             ], 200);
+        }
+
+        // Agregar una verificación adicional para el usuario no encontrado
+        $user = User::where('SAP', $request->SAP)->first();
+        if (!$user) {
+            return response()->json(['error' => 'usuario_no_encontrado'], 404);
         }
 
         return response()->json(['message' => 'Credenciales inválidas'], 401);

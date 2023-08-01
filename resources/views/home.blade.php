@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Panel de Control') }}</div>
 
                     <div class="card-body">
-                        @if (auth()->user()->rol === 'administrador')
+                        @if (auth()->check() && auth()->user()->rol === 'administrador')
                             <h2>Listado de Usuarios</h2>
                             <!-- Formulario de búsqueda por SAP -->
                             <form action="{{ route('home') }}" method="GET" class="mb-3">
@@ -29,7 +29,7 @@
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Email</th>
+                                            <th>Correo</th>
                                             <th>SAP</th>
                                             <th>Rol</th>
                                             <th>Estado</th>
@@ -73,8 +73,11 @@
                                     </tbody>
                                 </table>
                             </div>
-                        @elseif(auth()->user()->rol === 'cliente')
+
+                        @elseif(auth()->check() && auth()->user()->rol === 'cliente')
                             <p>No tienes permisos para ver esta página.</p>
+                        @else
+                            <p>Debes iniciar sesión para acceder a esta página.</p>
                         @endif
                     </div>
                 </div>

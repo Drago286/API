@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComponenteController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -45,3 +46,4 @@ Route::get('/home', [UserController::class, 'index'])->name('home');
 
 Route::get('/fallas', [FallaController::class, 'index'])->name('fallas.index');
 Route::post('/importar', [FallaController::class, 'importar'])->name('import');
+Route::post('/importar-stock', [ComponenteController::class, 'importar'])->name('import-stock');

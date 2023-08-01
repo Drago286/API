@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\CustomResetPasswordController;
 use App\Http\Controllers\CodigoController;
+use App\Http\Controllers\ComponenteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,8 @@ Route::post('/change-password', [CustomResetPasswordController::class, 'changePa
 Route::get('/fallas', [FallaController::class, 'index']);
 Route::post('/execute-query', [FallaController::class, 'executeQuery']);
 Route::post('/execute-query-codigos', [CodigoController::class, 'executeQuery']);
+Route::post('/execute-query-stock', [ComponenteController::class, 'executeQuery']);
+Route::post('/execute-query-stock-general', [ComponenteController::class, 'getStock']);
+
 Route::post('/loginApi', [LoginController::class, 'loginApi']);
 Route::post('/register', [RegisterController::class, 'registerApi']);

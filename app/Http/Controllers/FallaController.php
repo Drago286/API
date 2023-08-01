@@ -16,7 +16,14 @@ class FallaController extends Controller
      */
     public function index()
     {
-        return view('importFile');
+        if (auth()->check()) {
+            if (auth()->user()->rol == 'administrador') {
+                return view('importFile');
+            } else {
+                return view('home');
+            }
+        }
+        return view('home');
     }
 
     public function executeQuery(Request $request)

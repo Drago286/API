@@ -23,12 +23,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function index()
     {
         $user = Auth::user();
 
         if ($user->rol === 'administrador') {
-            $users = User::all();
+            $users = User::orderByDesc('created_at')->paginate(15);
             return view('home', ['users' => $users]);
         } elseif ($user->rol === 'cliente') {
             return view('home');
@@ -37,6 +38,7 @@ class HomeController extends Controller
             abort(403);
         }
     }
+
 
     /**
      * Update the status of a user.
