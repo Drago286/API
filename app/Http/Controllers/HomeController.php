@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Exception;
 
 class HomeController extends Controller
 {
@@ -49,25 +50,34 @@ class HomeController extends Controller
      */
     public function updateCredentials(Request $request, User $user)
     {
-        // Verificar si el usuario autenticado es un administrador
-        if (Auth::user()->rol === 'administrador') {
-            // Validar la solicitud
-            $request->validate([
-                'status' => 'required|in:habilitado,deshabilitado',
-                'rol' => 'required|in:cliente,administrador',
-            ]);
+        try {
+            // Verificar si el usuario autenticado es un administrador
+            if (Auth::user()->rol === 'administrador') {
+                // Validar la solicitud
+                $request->validate([
+                    'status' => 'required|in:habilitado,deshabilitado',
+                    'rol' => 'required|in:cliente,administrador',
+                ]);
 
-            // Actualizar el estado y el rol del usuario
-            $user->update([
-                'status' => $request->status,
-                'rol' => $request->rol,
-            ]);
+                // Evitar que un administrador cambie su propio rol a "cliente"
+                if ($user->id === Auth::id() && $request->rol === 'cliente') {
+                    return redirect()->route('home')->with('error', 'No puedes cambiar tu propio rol a "Cliente".');
+                }
 
-            // Redireccionar al panel de administrador con un mensaje
-            return redirect()->route('home')->with('success', 'Credenciales del usuario actualizadas correctamente.');
+                // Actualizar el estado y el rol del usuario
+                $user->update([
+                    'status' => $request->status,
+                    'rol' => $request->rol,
+                ]);
+
+                // Redireccionar al panel de administrador con un mensaje
+                return redirect()->route('home')->with('success', 'Credenciales del usuario actualizadas correctamente.');
+            }
+
+            // Si el usuario no es administrador, redireccionar con un mensaje de error
+            return redirect()->route('home')->with('error', 'No tienes permisos para realizar esta acción.');
+        } catch (Exception $e) {
+            return redirect()->route('home')->with('error', $e->getMessage());
         }
-
-        // Si el usuario no es administrador, redireccionar con un mensaje de error
-        return redirect()->route('home')->with('error', 'No tienes permisos para realizar esta acción.');
     }
 }

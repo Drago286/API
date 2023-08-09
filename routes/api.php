@@ -31,6 +31,5 @@ Route::post('/execute-query', [FallaController::class, 'executeQuery']);
 Route::post('/execute-query-codigos', [CodigoController::class, 'executeQuery']);
 Route::post('/execute-query-stock', [ComponenteController::class, 'executeQuery']);
 Route::post('/execute-query-stock-general', [ComponenteController::class, 'getStock']);
-
 Route::post('/loginApi', [LoginController::class, 'loginApi']);
 Route::post('/register', [RegisterController::class, 'registerApi']);

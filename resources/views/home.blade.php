@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">{{ __('Panel de Control') }}</div>
 
@@ -13,17 +13,30 @@
                             <!-- Formulario de búsqueda por SAP -->
                             <form action="{{ route('home') }}" method="GET" class="mb-3">
                                 <div class="input-group">
-                                    <input style="width: 100%" type="text" name="sap" class="form-control" placeholder="Buscar por SAP">
+                                    <input style="width: 100%" type="text" name="sap" class="form-control"
+                                        placeholder="Buscar por SAP">
                                 </div>
                                 <div class="input-group mt-3">
-                                    <button style="background-color: #4aaff7; color: #fff;" class="btn btn-secondary btn-block" type="submit">Buscar</button>
+                                    <button style="background-color: #4aaff7; color: #fff;"
+                                        class="btn btn-secondary btn-block" type="submit">Buscar</button>
                                 </div>
                             </form>
                             <form action="{{ route('home') }}" method="GET">
                                 <div class="input-group mb-3">
-                                    <button style="background-color: #f86969; color: #fff;" class="btn btn-secondary btn-block" type="submit">Eliminar filtros</button>
+                                    <button style="background-color: #f86969; color: #fff;"
+                                        class="btn btn-secondary btn-block" type="submit">Eliminar filtros</button>
                                 </div>
                             </form>
+                            @if (session()->has('error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            @if (session()->has('success'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -45,23 +58,30 @@
                                                 <td>{{ $user->rol }}</td>
                                                 <td>{{ $user->status }}</td>
                                                 <td>
+
                                                     <form method="POST" action="{{ route('update.status', $user->id) }}">
                                                         @csrf
                                                         @method('POST')
 
-                                                        <input type="hidden" name="current_status" value="{{ $user->status }}">
-                                                        <input type="hidden" name="current_rol" value="{{ $user->rol }}">
+                                                        <input type="hidden" name="current_status"
+                                                            value="{{ $user->status }}">
+                                                        <input type="hidden" name="current_rol"
+                                                            value="{{ $user->rol }}">
                                                         <select name="status">
-                                                            <option value="habilitado"{{ $user->status === 'habilitado' ? ' selected' : '' }}>
+                                                            <option
+                                                                value="habilitado"{{ $user->status === 'habilitado' ? ' selected' : '' }}>
                                                                 Habilitado</option>
-                                                            <option value="deshabilitado"{{ $user->status === 'deshabilitado' ? ' selected' : '' }}>
+                                                            <option
+                                                                value="deshabilitado"{{ $user->status === 'deshabilitado' ? ' selected' : '' }}>
                                                                 Deshabilitado</option>
                                                         </select>
                                                         <p></p>
                                                         <select name="rol">
-                                                            <option value="cliente"{{ $user->rol === 'cliente' ? ' selected' : '' }}>
+                                                            <option
+                                                                value="cliente"{{ $user->rol === 'cliente' ? ' selected' : '' }}>
                                                                 Cliente</option>
-                                                            <option value="administrador"{{ $user->rol === 'administrador' ? ' selected' : '' }}>
+                                                            <option
+                                                                value="administrador"{{ $user->rol === 'administrador' ? ' selected' : '' }}>
                                                                 Administrador</option>
                                                         </select>
                                                         <p></p>
@@ -73,7 +93,6 @@
                                     </tbody>
                                 </table>
                             </div>
-
                         @elseif(auth()->check() && auth()->user()->rol === 'cliente')
                             <p>No tienes permisos para ver esta página.</p>
                         @else
@@ -93,7 +112,8 @@
         border-collapse: collapse;
     }
 
-    th, td {
+    th,
+    td {
         border: 1px solid #dddddd;
         text-align: left;
         padding: 8px;
@@ -108,6 +128,7 @@
 
     /* Estilos adaptativos para pantallas móviles */
     @media (max-width: 767px) {
+
         /* Modificar el ancho del input y botón de búsqueda para móviles */
         input[name="sap"] {
             width: 100%;

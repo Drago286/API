@@ -15,7 +15,7 @@ class CustomResetPasswordController extends Controller
     {
         $request->validate([
             'SAP' => 'required|string',
-            'newPassword' => 'required|string|min:8',
+            'newPassword' => 'required|string',
         ]);
 
         $SAP = $request->input('SAP');
