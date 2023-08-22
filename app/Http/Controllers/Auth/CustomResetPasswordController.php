@@ -11,6 +11,7 @@ use App\Models\User;
 
 class CustomResetPasswordController extends Controller
 {
+    //Funcion que se encarga de cambia la contraseña del usuario desde el frontEnd.
     public function changePassword(Request $request)
     {
         $request->validate([

@@ -45,7 +45,7 @@ class LoginController extends Controller
     {
         return 'SAP';
     }
-
+    //Funcion que verifica la credenciales de inicio de sesion en el frontEnd
     public function loginApi(Request $request)
     {
         $request->validate([

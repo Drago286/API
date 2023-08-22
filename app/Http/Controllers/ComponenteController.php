@@ -10,6 +10,9 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ComponenteController extends Controller
 {
+    /**
+     * Verifica que el usuario este logeado y ademas que sea Administrador
+     */
     public function index()
     {
         if (auth()->check()) {
@@ -21,13 +24,14 @@ class ComponenteController extends Controller
         }
         return view('home');
     }
-
+    //Retorna hacia el frontEnd en formato json todo el stock
     public function getStock()
     {
         $results = Componente::All();
         return response()->json($results);
     }
 
+    //Recibe una query desde el frontEnd y retorna un json con los registros
 
     public function executeQuery(Request $request)
     {
@@ -38,6 +42,8 @@ class ComponenteController extends Controller
 
         return response()->json($results); // Devolver los resultados como JSON al frontend
     }
+
+    //Funcion que recibe y analiza un archivo tipo Excel que contiene toda la informacion que mantiene actualizada la base de datos
 
     public function importar(Request $request)
     {

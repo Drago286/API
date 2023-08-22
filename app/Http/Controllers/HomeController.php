@@ -25,6 +25,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
+    //Se verifica que el usuario este logeado y ademas de revisa el tipo de rol que posee
     public function index()
     {
         $user = Auth::user();
@@ -42,7 +43,7 @@ class HomeController extends Controller
 
 
     /**
-     * Update the status of a user.
+     * Actualiza las credenciales del usuario
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\User  $user

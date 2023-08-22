@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class FallaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Verifica que el usuario este logeado y ademas que sea Administrador
      */
     public function index()
     {
@@ -26,6 +26,7 @@ class FallaController extends Controller
         return view('home');
     }
 
+    //Recibe una query desde el frontEnd y retorna un json con los registros
     public function executeQuery(Request $request)
     {
         $query = $request->input('query'); // Obtener la consulta del frontend
@@ -82,6 +83,7 @@ class FallaController extends Controller
     {
         //
     }
+    //Funcion que recibe y analiza un archivo tipo Excel que contiene toda la informacion que mantiene actualizada la base de datos
     public function importar(Request $request)
     {
         $request->validate([
