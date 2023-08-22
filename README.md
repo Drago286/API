@@ -10,10 +10,20 @@
 ## Configuaracion de .env
 
 DB_CONNECTION=mysql
+
+
 DB_HOST={dirección ip de la base de datos}
+
+
 DB_PORT={puerto de la base de datos}
+
+
 DB_DATABASE={nombre de la base de datos}
+
+
 DB_USERNAME={usuario que posee los privilegios en la base de datos}
+
+
 DB_PASSWORD={contraseña de la base de datos}
 
 ## Migraciones
